@@ -7,33 +7,28 @@ import java.text.*;
 import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
-import org.springframework.stereotype.Service;;
+import org.springframework.stereotype.Service;
+
+;
 @Service
-public class RESTDataService  {
+public class RESTDataService {
 
+	public List<Book> getAllBooks() {
 
-
-	
-	
-	public List<Car> getAllCars()  {
-		
-		Car[] car_array = null;
-		try
-		{
+		Book[] book_array = null;
+		try {
 			RestTemplate restTemplate = new RestTemplate();
-		car_array = restTemplate.getForObject("http://localhost:8080/REST_service/service/cars", Car[].class) ;
-		System.out.println("Autosid REST-teenusest:" + car_array.length);
-		}
-		catch(Exception ex)
-		{
-			System.out.println("RESTDataService.getAllCars():"+ ex.getMessage());
+			book_array = restTemplate.getForObject(
+					"http://localhost:8080/REST_service/service/books",
+					Book[].class);
+			System.out.println("Autosid REST-teenusest:" + book_array.length);
+		} catch (Exception ex) {
+			System.out.println("RESTDataService.getAllBooks():"
+					+ ex.getMessage());
 		}
 
-		List<Car> car_list= Arrays.asList(car_array);
-		return car_list;
+		List<Book> book_list = Arrays.asList(book_array);
+		return book_list;
 	}
 
-	
-	
-	
 }

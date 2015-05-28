@@ -32,8 +32,11 @@ public class HomeController {
 
 	@RequestMapping(value="/test")
 	public ModelAndView goTestPage(Model model) throws IOException{
-		List<Car> cars = dataService.getAllCars();
-		 model.addAttribute("cars",  cars);
+		//List<Car> cars = dataService.getAllCars();
+		//model.addAttribute("cars",  cars);
+		 List<Book> books = dataService.getAllBooks();
+		 model.addAttribute("cars",  books);	 
+		 
 		return new ModelAndView("test");
 	}
 	

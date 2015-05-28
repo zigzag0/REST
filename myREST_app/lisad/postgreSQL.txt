@@ -1,29 +1,32 @@
-# PostgreSQL TABLE CREATE
-# Tabeli tegemine
+-- PostgreSQL TABLE CREATE
+-- Tabeli tegemine
+-- PostgreSQL TABLE CREATE
+-- Tabeli tegemine
+
 CREATE SEQUENCE book_id ;
-CREATE TABLE book
-(
-   id               numeric (10, 0) NOT NULL DEFAULT nextval('book_id'),
-   book_name        text,
-   book_author      text,
-   pages_total      numeric (5, 0),
-   print_out_year   numeric (4, 0),
-   CONSTRAINT book_pk PRIMARY KEY (id)
-)
+
+CREATE TABLE books
+( id numeric(10,0) NOT NULL DEFAULT nextval('book_id'),
+  book_name text,
+  book_author text,
+  pages_total numeric (5, 0),
+  print_out_year numeric(4,0),
+  CONSTRAINT book_pk PRIMARY KEY (id)
+) ;
 
 
-# Tabeli täitmine
-INSERT INTO car (book_name, book_author,pages_total, print_out_year)
-	VALUES ('Book nr.1','Book author nr.1','12345',2001);
+--Tabeli taitmine
+INSERT INTO books (book_name, book_author,pages_total, print_out_year)
+	VALUES ('Book nr.1','Book author nr.1', 12345, 2001);
 
-INSERT INTO car (book_name, book_author,pages_total, print_out_year)
-	VALUES ('Book nr.2','Book author nr.2','1234',2002);
+INSERT INTO books (book_name, book_author,pages_total, print_out_year)
+	VALUES ('Book nr.2','Book author nr.2', 1234 ,2002);
 
-INSERT INTO car (book_name, book_author,pages_total, print_out_year)
-	VALUES ('Book nr.3','Book author nr.3','123',2003);
+INSERT INTO books (book_name, book_author,pages_total, print_out_year)
+	VALUES ('Book nr.3','Book author nr.3', 123 ,2003);
 
-INSERT INTO car (book_name, book_author,pages_total, print_out_year)
-	VALUES ('Book nr.4','Book author nr.4','12',2004);
+INSERT INTO books (book_name, book_author,pages_total, print_out_year)
+	VALUES ('Book nr.4','Book author nr.4', 12 ,2004);
 
-INSERT INTO car (book_name, book_author,pages_total, print_out_year)
-	VALUES ('Book nr.5','Book author nr.5','1',2005);
+INSERT INTO books (book_name, book_author,pages_total, print_out_year)
+	VALUES ('Book nr.5','Book author nr.5', 1 ,2005);

@@ -25,45 +25,41 @@ import org.springframework.ui.Model;
 import ttu.idu0080.rest.service.*;
 import ttu.idu0080.rest.data.*;
 
-
 @Controller
 public class RESTController {
-	
+
 	@Autowired
 	private DataService dataService;
 	@Autowired
 	private RESTDataService restDataService;
 
-	@RequestMapping(value="/service/cars",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Car> getCars(HttpServletResponse response) throws IOException{
-		
-		List<Car> cars = dataService.getAllCars();
-		return cars;
-	}
-	
-	@RequestMapping(value="/service/car/{id}",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Car getCar(@PathVariable int id) throws IOException{
-		
-		Car car = dataService.getCarById(id);
-		return car;
-	}
-	
-	@Transactional
-	@RequestMapping(value = "/service/car/{id}", method=RequestMethod.POST)
-	public @ResponseBody void updateCar(@RequestBody Car car)
-	{
-		dataService.update(car);
-		
-	}
-	
-	
-	
-	@RequestMapping(value="/service/external/cars",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Car> getExternalCars(HttpServletResponse response) throws IOException{
-		List<Car> cars = restDataService.getAllCars();
-		return cars;
-	}
-	
+	@RequestMapping(value = "/service/books", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Book> getCars(HttpServletResponse response)
+			throws IOException {
 
-	
+		List<Book> books = dataService.getAllBooks();
+		return books;
+	}
+
+	@RequestMapping(value = "/service/books/{id}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Book getBook(@PathVariable int id) throws IOException {
+
+		Book book = dataService.getBookById(id);
+		return book;
+	}
+
+	@Transactional
+	@RequestMapping(value = "/service/book/{id}", method = RequestMethod.POST)
+	public @ResponseBody void updateBook(@RequestBody Book book) {
+		dataService.update(book);
+
+	}
+
+	@RequestMapping(value = "/service/external/books", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Book> getExternalBooks(
+			HttpServletResponse response) throws IOException {
+		List<Book> book = restDataService.getAllBooks();
+		return book;
+	}
+
 }

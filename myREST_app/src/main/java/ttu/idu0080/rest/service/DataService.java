@@ -18,11 +18,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.transaction.annotation.Propagation;
 
 import javax.persistence.EntityTransaction;
+
 @Repository
-public class DataService  {
-
-
-
+public class DataService {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,143 +29,117 @@ public class DataService  {
 		this.em = em;
 	}
 
+	public Book getBookById(long id) {
 
-	public Car getCarById(long id)  {
-
-
-		Car node = null;
+		Book node = null;
 		try {
 
-
-			Query q =  em
-					.createQuery(
-							"select c from Car c where c.id = :id")
-							.setParameter("id", id);
-			node = (Car) q.getSingleResult();
-
+			Query q = em.createQuery("select c from Book c where c.id = :id")
+					.setParameter("id", id);
+			node = (Book) q.getSingleResult();
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.getCarById():"+ ex.getMessage());
-		
+		catch (Exception ex) {
+			System.out.println("DataService.getBookById():" + ex.getMessage());
+
 		}
 
 		return node;
 	}
 
+	public List<Book> getAllBooks() {
 
-	
-	
-	
-	public List<Car> getAllCars()  {
-
-
-		List<Car> car_list = null;
+		List<Book> book_list = null;
 		try {
 
-
-			Query q =  em
-					.createQuery(
-							"select c from Car c ");
-			car_list = (List<Car>)  q.getResultList();
-
+			Query q = em.createQuery("select c from Book c ");
+			book_list = (List<Book>) q.getResultList();
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.getAllCars():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.getAllBooks():" + ex.getMessage());
 		}
 
-		return car_list;
+		return book_list;
 	}
 
-	
-	
-	public Car update(Car car)  {
+	public Book update(Book book) {
 
-
-		System.out.println("car update , car model: " + car.getModel());
+		System.out
+				.println("book update , book autor: " + book.getBook_author());
 		try {
 
-			em.merge(car);
+			em.merge(book);
 			em.flush();
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.update():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.update():" + ex.getMessage());
 		}
 
-		return car;
+		return book;
 	}
 
-	
-	public Car save(Car car) {
+	public Book save(Book book) {
 
-		System.out.println("new car insert , car model: " + car.getModel());
+		System.out.println("new book insert , book author: "
+				+ book.getBook_author());
 
 		try {
-			
-			em.persist(car);
 
+			em.persist(book);
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.save():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.save():" + ex.getMessage());
 		}
 
-		return car;
+		return book;
 	}
-	
+
 	public void delete(long id) {
 
 		System.out.println("DELETE ");
 
 		try {
-			
-	          Car car =  em.find(Car.class,id);
-	          em.remove(car);
 
+			Book book = em.find(Book.class, id);
+			em.remove(book);
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.delete():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.delete():" + ex.getMessage());
 		}
-
 
 	}
-	
-	public  List<Car> searchByModel(String s_model)  {
 
-		List<Car> cars = null;
+	public List<Book> searchByAuthor(String s_book_author) {
+
+		List<Book> books = null;
 
 		try {
 
-			String sql = "from Car c where upper(c.model) like upper(:model) order by c.make";
-            
-			Query q = em.createQuery(sql);	
-			q.setParameter("model", s_model+"%") ;                  
-			cars =  (List<Car>) q.getResultList();	 				
-                        System.out.println("Otsingu tulemusi:" + cars.size());
+			String sql = "from Book c where upper(c.book_author) like upper(:book_author) order by c.book_name";
+
+			Query q = em.createQuery(sql);
+			q.setParameter("author", s_book_author + "%");
+			books = (List<Book>) q.getResultList();
+			System.out.println("Otsingu tulemusi:" + books.size());
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.searchByModel():" + ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.searchByAuthor():"
+					+ ex.getMessage());
 
 		}
 
-		return cars;
+		return books;
 	}
-	
-	
+
 }
