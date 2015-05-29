@@ -18,11 +18,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.transaction.annotation.Propagation;
 
 import javax.persistence.EntityTransaction;
+
 @Repository
-public class DataService  {
-
-
-
+public class DataService {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,36 +29,21 @@ public class DataService  {
 		this.em = em;
 	}
 
+	public List<Book> getAllBooks() {
 
-	
-	public List<Car> getAllCars()  {
-
-
-		List<Car> car_list = null;
+		List<Book> book_list = null;
 		try {
 
-
-			Query q =  em
-					.createQuery(
-							"select c from Car c ");
-			car_list = (List<Car>)  q.getResultList();
-
+			Query q = em.createQuery("select c from Book c ");
+			book_list = (List<Book>) q.getResultList();
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.getAllCars():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.getAllBooks():" + ex.getMessage());
 		}
 
-		return car_list;
+		return book_list;
 	}
 
-	
-	
-	
-
-	
-	
-	
 }

@@ -37,7 +37,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
-
+// Andmebaasiga Ühenduse loomise seadistus.
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "org.postgresql.Driver";
     //private static final String PROPERTY_NAME_DATABASE_PASSWORD = "";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "123";

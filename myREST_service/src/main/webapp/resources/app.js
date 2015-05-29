@@ -1,25 +1,25 @@
-var car_from_server;
+var book_from_server;
 
-function Car()
+function Book()
 {
-this.make;
-this.model;
-this.series;
-this.year;
+this.book_name;
+this.book_author;
+this.pages_total;
+this.print_out_year;
 }
 
-function get_cars()
+function get_books()
 {
 
  
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/cars' ,
+    url: 'service/books' ,
     type: "GET",
     dataType: 'json',
     success: function(data) {
-    	display_cars(data);
+    	display_books(data);
         console.log(JSON.stringify(data));
 
     }
@@ -29,19 +29,19 @@ $.ajax({
 }
 
 
-function get_car(id)
+function get_book(id)
 {
 
  
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/car/' + id ,
+    url: 'service/book/' + id ,
     type: "GET",
     dataType: 'json',
     success: function(data) {
     	car_from_server = data;
-    	display_car(data);
+    	display_book(data);
         console.log(JSON.stringify(data));
 
     }
@@ -51,19 +51,19 @@ $.ajax({
 }
 
 
-function save_car()
+function save_book()
 {
 	
-	car_from_server.make=document.forms[0].make.value;
-	car_from_server.model=document.forms[0].model.value;
-	car_from_server.series=document.forms[0].series.value;
-	car_from_server.year=document.forms[0].year.value;
+	book_from_server.book_name=document.forms[0].book_name.value;
+	book_from_server.book_author=document.forms[0].book_author.value;
+	book_from_server.pages_total=document.forms[0].pages_total.value;
+	book_from_server.print_out_year=document.forms[0].print_out_year.value;
 		
 var jsonData = JSON.stringify(car_from_server); 
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/car/' + car_from_server.id ,
+    url: 'service/book/' + book_from_server.id ,
     type: "POST",
     data: jsonData,
     dataType: 'json',
@@ -79,19 +79,19 @@ $.ajax({
 }
 
 
-function add_car()
+function add_boook()
 {
-	var car_to_server = new Car();
-	car_to_server.make=document.forms[0].new_car_make.value;
-	car_to_server.model=document.forms[0].new_car_model.value;
-	car_to_server.series=document.forms[0].new_car_series.value;
-	car_to_server.year=document.forms[0].new_car_year.value;
+	var book_to_server = new Book();
+	book_to_server.book_name=document.forms[0].new_book_book_name.value;
+	book_to_server.book_author=document.forms[0].new_book_book_author.value;
+	book_to_server.pages_total=document.forms[0].new_book_pages_total.value;
+	book_to_server.print_out_year=document.forms[0].new_book_print_out_year.value;
 		
-var jsonData = JSON.stringify(car_to_server); 
+var jsonData = JSON.stringify(book_to_server); 
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/car/' ,
+    url: 'service/book/' ,
     type: "PUT",
     data: jsonData,
     dataType: 'json',
@@ -106,43 +106,43 @@ $.ajax({
 
 }
 
-function display_car(car)
+function display_book(book)
 {
 	 var out_data="";
-	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Auto id: <b>" + car.id + "</b></td></tr>";
+	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Raamat id: <b>" + book.id + "</b></td></tr>";
 
-		out_data = out_data + "<tr><td>Mark:</td><td><input type=text name=make value='" + car.make + "'></td></tr>";
-		out_data = out_data + "<tr><td>Mudel:</td><td><input type=text name=model value='" + car.model + "'></td></tr>";
-		out_data = out_data + "<tr><td>Seeria:</td><td><input type=text name=series value='" + car.series + "'></td></tr>";
-		out_data = out_data + "<tr><td>Aasta:</td><td><input type=text name=year value='" + car.year + "'></td></tr>";
-		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:save_car()'>Salvesta</button></td>";
-		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_car()'>Kustuta</button></td></tr>";
+		out_data = out_data + "<tr><td>Raamatu nimi:</td><td><input type=text name=book_name value='" + book.book_name + "'></td></tr>";
+		out_data = out_data + "<tr><td>Autori nimi:</td><td><input type=text name=book_author value='" + book.book_author + "'></td></tr>";
+		out_data = out_data + "<tr><td>Lehekülgi kokku:</td><td><input type=text name=pages_total value='" + book.pages_total + "'></td></tr>";
+		out_data = out_data + "<tr><td>Väljatrüki aasta:</td><td><input type=text name=print_out_year value='" + book.print_out_year + "'></td></tr>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:save_book()'>Salvesta</button></td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_book()'>Kustuta</button></td></tr>";
 		out_data = out_data + "</table>";
 
 	
 
 	
-	 $("#one_car").html(out_data);
+	 $("#one_book").html(out_data);
 }
 
 
 
 
-function display_cars(data)
+function display_books(data)
 {
 	var out_data="";
-	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Autod, kokku: <b>" + data.length + "</b></td></tr>";
+	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Ramatud, kokku: <b>" + data.length + "</b></td></tr>";
 	 for(var  i in data) {
-   	  var car = data[i];
-		out_data = out_data + "<tr><td>Mark:</td><td>" + car.make + "</td><td>mudel:</td><td>" + car.model + "</td>";
-		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_car(" + car.id + ")'>Vali</button></td></tr>";
+   	  var book = data[i];
+		out_data = out_data + "<tr><td>raamatu nimi:</td><td>" + book.book_name + "</td><td>autori nimi:</td><td>" + book.book_author + "</td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_book(" + book.id + ")'>Vali</button></td></tr>";
 		out_data = out_data + "</table>";
 		
 	 }
 	
 
 	
-	 $("#cars_table").html(out_data);
+	 $("#books_table").html(out_data);
 }
 
 
