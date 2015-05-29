@@ -1,7 +1,5 @@
 -- PostgreSQL TABLE CREATE
 -- Tabeli tegemine
--- PostgreSQL TABLE CREATE
--- Tabeli tegemine
 
 CREATE SEQUENCE book_id ;
 
